@@ -1,0 +1,50 @@
+.navbar {
+    font-family: "Times New Roman", Times, serif;
+    transition: all 0.4s;
+    background: linear-gradient(to right, #141e30, #243b55);
+}
+
+.nav-item {
+    padding-right: 30px;
+}
+
+.nav-link:hover {
+    background-color: black;
+    border-radius: 12px;
+}
+
+#nav-logo {
+    width: 40px;
+}
+
+@media (max-width: 768px) {
+    #navbar-logo {
+        width: 75px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 400px) {
+    #navbar-logo {
+        width: 75px;
+        height: 60px;
+    }
+
+    #tentang iframe {
+        width: 100%;
+        height: 300px;
+    }
+}
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 50%;
+    position: relative;
+    height: 0;
+}
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}

@@ -833,9 +833,9 @@ class AdminController extends Controller
         $notification = array(
             'message' => 'Data tata tertib berhasil ditambahkan',
             'alert-type' => 'success'
-    );
+        );
 
-        return redirect()->route('index_tata_tertib')->with($notification);
+        return redirect()->route('index_tata_tertib')->with('success', 'Data tata tertib berhasil ditambahkan.');
 
     }
 
@@ -880,7 +880,7 @@ class AdminController extends Controller
             'message' => 'Data tata tertib tidak berhasil diupdate',
             'alert-type' => 'error'
         );
-            return redirect()->route('index_tata_tertib')->with($notification);
+            return redirect()->route('index_tata_tertib')->with('success', 'Data tata tertib  berhasil diupdate.');
         }
 
     }
@@ -906,7 +906,7 @@ class AdminController extends Controller
                 'alert-type' => 'error'
             );
 
-            return redirect()->route('index_tata_tertib')->with($notification);
+            return redirect()->route('index_tata_tertib')->with('success', 'Data tata tertib berhasil dihapus.');
         }
     }
 
@@ -936,7 +936,7 @@ class AdminController extends Controller
         'point_pelanggaran' => $request->point_pelanggaran,
     ]);
 
-        return redirect()->route('index_data_point_pelanggaran')->with('message', 'Data pelanggaran berhasil ditambahkan');
+        return redirect()->route('index_data_point_pelanggaran')->with('success', 'Data pelanggaran berhasil ditambahkan');
     }
 
     public function data_point_pelanggaran_destroy($id)
@@ -978,7 +978,7 @@ class AdminController extends Controller
 
             $pelanggaran->save();
 
-            return redirect()->route('index_data_point_pelanggaran')->with('message', 'Data pelanggaran berhasil diupdate');
+            return redirect()->route('index_data_point_pelanggaran')->with('success', 'Data pelanggaran berhasil diupdate');
         } catch (\Throwable $th) {
             Log::error('Error updating data point pelanggaran: ' . $th->getMessage());
             return redirect()->route('index_data_point_pelanggaran')->with('error', 'Data pelanggaran tidak berhasil diupdate');

@@ -50,7 +50,7 @@
 
                                             {{-- Tombol Hapus --}}
                                             <form action="{{ route('tata_destroy', $item->id) }}" method="POST"
-                                                onsubmit="return confirm('Yakin hapus?')" class="mb-0">
+                                                class="form-hapus mb-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">
@@ -178,5 +178,29 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        // Tangani semua form dengan class "form-hapus"
+        document.querySelectorAll('.form-hapus').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Hentikan submit dulu
+
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: "Data yang dihapus tidak bisa dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit form jika user setuju
+                    }
+                });
+            });
+        });
     </script>
 @endpush

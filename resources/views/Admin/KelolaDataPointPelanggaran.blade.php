@@ -56,13 +56,14 @@
 
                                             {{-- Tombol Hapus --}}
                                             <form action="{{ route('data_point_pelanggaran_destroy', $pelanggaran->id) }}"
-                                                method="POST" onsubmit="return confirm('Yakin hapus?')" class="mb-0">
+                                                method="POST" class="form-hapus mb-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i> Hapus
                                                 </button>
                                             </form>
+
 
                                         </div>
                                     </td>
@@ -226,5 +227,28 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        document.querySelectorAll('.form-hapus').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Cegah submit langsung
+
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Lanjutkan submit jika dikonfirmasi
+                    }
+                });
+            });
+        });
     </script>
 @endpush

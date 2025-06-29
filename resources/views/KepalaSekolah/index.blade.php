@@ -110,7 +110,7 @@
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content border-0 shadow-sm">
-                    <div class="modal-header  text-dark">
+                    <div class="modal-header  text-dark bg-info">
                         <h5 class="modal-title font-weight-bold" id="previewSuratLabel">
                             <i class="fas fa-eye mr-2"></i> Preview Surat
                         </h5>

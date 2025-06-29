@@ -9,6 +9,8 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\DokumenSurat;
 use App\Models\Siswa;
 use App\Models\SuratKeluar;
+use App\Models\KelasJurusan;
+use App\Models\PelanggaranSiswa;
 
 class KepalaSekolahController extends Controller
 {
@@ -170,6 +172,48 @@ class KepalaSekolahController extends Controller
     }
 
 
+    public function show_lihat_data_pelanggaran(Request $request)
+    {
 
+        $pelanggarans = PelanggaranSiswa::with([
+        'siswa.kelasJurusan.kelas',
+        'siswa.kelasJurusan.jurusan',
+        'dataPointPelanggaran',
+        ])->get();
+
+        $rekapPelanggaran = $pelanggarans
+            ->groupBy('siswas_id')
+            ->map(function ($items) {
+                $siswa = $items->first()->siswa;
+                $kelasJurusan = $siswa->kelasJurusan;
+                $kelasNama = $kelasJurusan->kelas->kelas ?? '-';
+                $jurusanNama = $kelasJurusan->jurusan->nama_jurusan ?? '-';
+
+                return [
+                    'nis' => $siswa->nis,
+                    'nama_siswa' => $siswa->nama,
+                    'kelas_jurusan' => $kelasNama . ' - ' . $jurusanNama,
+                    'total_point' => $items->sum(fn($item) => $item->dataPointPelanggaran->point_pelanggaran ?? 0),
+                ];
+                })
+                ->sortByDesc('total_point')
+                ->values();
+
+        // Ambil keyword pencarian
+        $search = $request->input('search');
+        if ($search) {
+            $rekapPelanggaran = $rekapPelanggaran
+                ->filter(fn($row) => 
+                    str_contains(strtolower($row['nis']), strtolower($search)) ||
+                    str_contains(strtolower($row['nama_siswa']), strtolower($search)) ||
+                    str_contains(strtolower($row['kelas_jurusan']), strtolower($search)) ||
+                    str_contains((string)$row['total_point'], $search)
+                )
+                ->values(); // reset index setelah filter
+        }
+
+
+        return view('Admin.LihatDataPelanggaran', compact('rekapPelanggaran','search'));
+    }
 
 }

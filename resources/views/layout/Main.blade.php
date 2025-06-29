@@ -163,9 +163,9 @@
                                 </a>
                             </li>
                             <li
-                                class="nav-item {{ request()->is(['Admin/KelolaDataPelanggaranSiswa*', 'Admin/KelolaDataGuru*', 'Admin/LihatDataPelanggaran*', 'Admin/KelolaSurat*']) ? 'menu-open menu-is-opening' : '' }}">
+                                class="nav-item {{ request()->is(['Admin/KelolaDataPelanggaranSiswa*', 'Admin/LihatDataPelanggaran*', 'Admin/KelolaSurat*']) ? 'menu-open menu-is-opening' : '' }}">
                                 <a href="#"
-                                    class="nav-link {{ request()->is(['Admin/KelolaDataPelanggaranSiswa*', 'Admin/KelolaDataGuru*', 'Admin/LihatDataPelanggaran*', 'Admin/KelolaSurat*']) ? ' active' : '' }}">
+                                    class="nav-link {{ request()->is(['Admin/KelolaDataPelanggaranSiswa*', 'Admin/LihatDataPelanggaran*', 'Admin/KelolaSurat*']) ? ' active' : '' }}">
                                     <i class="nav-icon fas fa-file-signature"></i>
                                     <p>ManajemenPelanggaran
                                         <i class="fas fa-angle-left right "></i>
@@ -348,8 +348,10 @@
                         @endif
                         {{-- MENU UNTUK KEPALA SEKOLAH --}}
                         @if (Auth::user()->roles_id == 5)
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link">
+                            <li
+                                class="nav-item {{ request()->is(['KepalaSekolah/surat-menunggu*', 'KepalaSekolah/riwayat-surat*']) ? 'menu-open menu-is-opening' : '' }}">
+                                <a href="#"
+                                    class="nav-link {{ request()->is(['KepalaSekolah/surat-menunggu*', 'KepalaSekolah/riwayat-surat*']) ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-file-signature"></i>
                                     <p>Manajemen Surat
                                         <i class="fas fa-angle-left right "></i>
@@ -357,26 +359,31 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('index_surat') }}" class="nav-link">
+                                        <a href="{{ route('index_surat') }}"
+                                            class="nav-link {{ request()->is('KepalaSekolah/surat-menunggu*') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Daftar Konfirmasi Surat</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('kepsek.riwayat.surat') }}" class="nav-link">
+                                        <a href="{{ route('kepsek.riwayat.surat') }}"
+                                            class="nav-link {{ request()->is('KepalaSekolah/riwayat-surat*') ? 'active' : '' }}">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Daftar Riwayat Surat</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
+
                             <li class="nav-item">
-                                <a href=# class="nav-link {{ request()->is('Admin/Dashboard*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Lihat Data Pelanggaran Siswa</p>
+                                <a href={{ route('show_lihat_data_pelanggaran') }}
+                                    class="nav-link {{ request()->is('KepalaSekolah/LihatDataPelanggaran*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon "></i>
+                                    <p>Lihat Data Pelanggaran</p>
                                 </a>
                             </li>
                         @endif
+
 
                     </ul>
                 </nav>
@@ -388,7 +395,7 @@
         @yield('content')
 
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
+        <footer class="main-footer text-right">
             <strong>Copyright &copy; 2024-2025 <a href="https://adminlte.io">Stekmal</a>.</strong>
             All rights reserved.
         </footer>

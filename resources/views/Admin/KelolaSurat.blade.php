@@ -127,8 +127,8 @@
             <form id="formKelolaSurat" method="POST" action="{{ route('store_surat') }}">
                 @csrf
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalKelolaSuratLabel">Input Surat Peringatan</h5>
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title" id="modalKelolaSuratLabel">Tambah Surat </h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -200,7 +200,7 @@
             <div class="modal-content border-0 shadow-sm">
                 <div class="modal-header  text-dark bg-info">
                     <h5 class="modal-title font-weight-bold" id="previewSuratLabel">
-                        <i class="fas fa-eye mr-2"></i> Preview Surat
+                        <i class="fas fa-eye mr-2"></i> Preview Data Surat
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>

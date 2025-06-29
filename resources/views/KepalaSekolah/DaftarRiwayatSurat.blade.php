@@ -62,7 +62,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" class="text-center text-muted">Tidak ada surat yang
+                                            <td colspan="9" class="text-center text-muted">Tidak ada surat yang
                                                 disetujui.</td>
                                         </tr>
                                     @endforelse

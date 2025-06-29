@@ -47,4 +47,10 @@ class Siswa extends Model
         return $this->hasMany(PelanggaranSiswa::class, 'siswas_id');
     }
 
+    public function suratKeluar()
+    {
+        return $this->hasMany(SuratKeluar::class, 'siswa_id');
+    }
+
+
 }

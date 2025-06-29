@@ -38,7 +38,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $surat->kode_surat }}</td>
-                                            <td>{{ $siswa->nama }}</td>
+                                            <td>{{ $siswa?->nama }}</td>
                                             <td>{{ $kelas }} - {{ $jurusan }}</td>
                                             <td>{{ $surat->jenis_surat }}</td>
                                             <td>{{ \Carbon\Carbon::parse($surat->tanggal_pembuatan)->translatedFormat('d F Y') }}

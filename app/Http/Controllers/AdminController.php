@@ -588,9 +588,19 @@ class AdminController extends Controller
 
     public function destroy_siswa($id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::with(['suratKeluar.dokumenSurat', 'user'])->findOrFail($id);
 
-        // Hapus file foto jika ada
+        // Hapus surat terkait
+        foreach ($siswa->suratKeluar as $surat) {
+            // Hapus file jika ada
+            if ($surat->dokumenSurat) {
+                Storage::delete('public/hasil_surat/' . $surat->dokumenSurat->file_name);
+                $surat->dokumenSurat()->delete();
+            }
+            $surat->delete();
+        }
+
+        // Hapus foto siswa jika ada
         if ($siswa->foto && Storage::exists('public/foto_siswa/' . $siswa->foto)) {
             Storage::delete('public/foto_siswa/' . $siswa->foto);
         }
@@ -603,8 +613,9 @@ class AdminController extends Controller
         // Hapus siswa
         $siswa->delete();
 
-        return redirect()->back()->with('success', 'Data siswa berhasil dihapus.');
+        return redirect()->back()->with('success', 'Data siswa dan surat terkait berhasil dihapus.');
     }
+
 
 
     //DATA GURU
@@ -891,7 +902,7 @@ class AdminController extends Controller
             Log::error('Error deleting tata tertib: ' . $th->getMessage());
             // Notifikasi gagal
             $notification = array(
-                'message' => 'Data tata tertib tidak berhasil dihapus',
+                'message' => 'Data tata tertib berhasil dihapus',
                 'alert-type' => 'error'
             );
 

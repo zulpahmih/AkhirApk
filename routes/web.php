@@ -138,13 +138,17 @@ Route::prefix('Admin')->middleware(['auth', 'roles:1'])->group(function () {
 
 });
 
-   Route::prefix('Guru')->middleware(['auth', 'roles:2'])->group(function () {
+Route::prefix('Guru')->middleware(['auth', 'roles:2'])->group(function () {
 
-    Route::get('/InsertKelolaDataPelanggaranKelas', [GuruController::class, 'create_data_pelanggaran_kelas'])->name('create_data_pelanggaran_kelas');
 
-    Route::get('/LihatDataPelanggaranKelas', [GuruController::class, 'show_lihat_data_pelanggaran_kelas'])->name('show_lihat_data_pelanggaran_kelas');
-    Route::get('/KelolaDataPelanggaranKelas', [GuruController::class, 'show_kelola_data_pelanggaran_kelas'])->name('show_kelola_data_pelanggaran_kelas');
-    
+Route::get('/LihatDataPelanggaranKelas', [GuruController::class, 'show_lihat_data_pelanggaran_kelas'])->name('show_lihat_data_pelanggaran_kelas');
+Route::get('/KelolaDataPelanggaranKelas', [GuruController::class, 'show_kelola_data_pelanggaran_kelas'])->name('show_kelola_data_pelanggaran_kelas');
+Route::post('/InsertKelolaDataPelanggaranKelas', [GuruController::class, 'store_data_pelanggaran_kelas'])->name('create_data_pelanggaran_kelas');
+// Ini yang diperbaiki:
+    Route::get('/get-nis/{id}', [GuruController::class, 'getNis']);
+    Route::get('/get-pelanggaran/{tataTertibId}', [GuruController::class, 'getPelanggaran']);
+    Route::get('/get-point/{pelanggaranId}', [GuruController::class, 'getPoint']);
+
 });
 
 Route::prefix('Siswa')->middleware(['auth', 'roles:3'])->group(function () {
@@ -166,6 +170,8 @@ Route::prefix('KepalaSekolah')->middleware(['auth', 'roles:5'])->group(function 
     Route::get('/surat/preview/{id}', [KepalaSekolahController::class, 'preview']);
 
     Route::get('/riwayat-surat', [KepalaSekolahController::class, 'riwayatSurat'])->name('kepsek.riwayat.surat');
+
+    Route::get('/LihatDataPelanggaran', [KepalaSekolahController::class, 'show_lihat_data_pelanggaran'])->name('show_lihat_data_pelanggaran');
 
 });
 
